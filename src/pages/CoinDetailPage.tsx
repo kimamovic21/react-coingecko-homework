@@ -32,13 +32,13 @@ function cleanHtmlText(input: string | undefined): string {
 export function CoinDetailPage({ isDark }: CoinDetailPageProps) {
   const { id } = useParams();
   const [coin, setCoin] = useState<CoinDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(() => Boolean(id));
+  const [error, setError] = useState<string | null>(() =>
+    id ? null : "Invalid coin route.",
+  );
 
   useEffect(() => {
     if (!id) {
-      setError("Invalid coin route.");
-      setLoading(false);
       return;
     }
 

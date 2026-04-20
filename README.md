@@ -9,6 +9,7 @@ This project includes:
 - Coin detail view by route id.
 - Dark and light theme toggle with sun/moon icons.
 - Console logging of API responses for demo/instructor review.
+- Simple Vitest + React Testing Library tests for coin list and coin detail fetching.
 
 ## Tech Stack
 
@@ -18,6 +19,8 @@ This project includes:
 - React Router DOM
 - Tailwind CSS v4
 - React Icons
+- Vitest
+- React Testing Library
 
 ## Features
 
@@ -45,6 +48,12 @@ Path: `/:id`
 - Default mode is dark.
 - Theme toggle button in app header (sun/moon icons).
 - Theme preference is saved in localStorage.
+
+### Tests
+
+- `__tests__` folder contains simple page tests.
+- `mocks` folder holds sample CoinGecko responses used by the tests.
+- Tests cover fetching the coin list and fetching Bitcoin by id.
 
 ## API Endpoints Used
 
@@ -97,17 +106,27 @@ npm run build
 npm run preview
 ```
 
+### 5. Run tests
+
+```bash
+npm test
+```
+
 ## Project Structure
 
 ```text
 src/
   App.tsx
   index.css
+  __tests__/
   lib/
     coingecko.ts
+  mocks/
   pages/
     CoinsListPage.tsx
     CoinDetailPage.tsx
+  test/
+    setup.ts
 ```
 
 ## Notes
@@ -115,3 +134,4 @@ src/
 - CoinGecko free API can occasionally rate-limit requests.
 - If rate-limited, the UI shows an error message.
 - This project is focused on route-based coin browsing and API integration.
+- The test setup is intentionally small and uses mocked CoinGecko responses.

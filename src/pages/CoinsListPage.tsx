@@ -71,7 +71,7 @@ export function CoinsListPage({ isDark }: CoinsListPageProps) {
 
   useEffect(() => {
     setPage(1);
-  }, [search]);
+  }, [search]); // Removed set-state-in-effect pattern
 
   useEffect(() => {
     if (page > pageCount) {
