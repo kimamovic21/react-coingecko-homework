@@ -1,73 +1,117 @@
-# React + TypeScript + Vite
+# CoinGecko React Homework
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript + Vite application that integrates the CoinGecko free API.
 
-Currently, two official plugins are available:
+This project includes:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Two routes using React Router.
+- Coin list view with search and pagination.
+- Coin detail view by route id.
+- Dark and light theme toggle with sun/moon icons.
+- Console logging of API responses for demo/instructor review.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite
+- React Router DOM
+- Tailwind CSS v4
+- React Icons
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Home Route
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Path: `/`
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Fetches top 100 coins from CoinGecko by market cap.
+- Search filter by coin name, symbol, or id.
+- Pagination with 10 items per page.
+- Click any coin to navigate to its detail route.
+- Logs list API response in browser console.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Coin Detail Route
+
+Path: `/:id`
+
+- Fetches coin data by id from CoinGecko.
+- Displays rank, pricing stats, market cap, 24h data, and description.
+- Includes back button to return to list route.
+- Logs detail API response in browser console.
+
+### Theme Support
+
+- Default mode is dark.
+- Theme toggle button in app header (sun/moon icons).
+- Theme preference is saved in localStorage.
+
+## API Endpoints Used
+
+Base URL:
+
+`https://api.coingecko.com/api/v3`
+
+List endpoint:
+
+`/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false`
+
+Detail endpoint:
+
+`/coins/{id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`
+
+## Console Output (Instructor Demo)
+
+When data is fetched, these logs appear in the browser console:
+
+- `[CoinGecko] / (top 100 coins) response:`
+- `[CoinGecko] /{id} (coin by id) response:`
+
+## Getting Started
+
+### 1. Install dependencies
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Run development server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+The app runs on:
+
+`http://localhost:3000`
+
+### 3. Build for production
+
+```bash
+npm run build
+```
+
+### 4. Preview production build
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```text
+src/
+  App.tsx
+  index.css
+  lib/
+    coingecko.ts
+  pages/
+    CoinsListPage.tsx
+    CoinDetailPage.tsx
+```
+
+## Notes
+
+- CoinGecko free API can occasionally rate-limit requests.
+- If rate-limited, the UI shows an error message.
+- This project is focused on route-based coin browsing and API integration.
